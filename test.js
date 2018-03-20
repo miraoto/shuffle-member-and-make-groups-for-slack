@@ -13,7 +13,6 @@ var callback = function(){};
 
 process.env['BOT_TOKEN'] =  'XXX';
 process.env['CHANNEL_ID'] = 'XXX';
-//process.env['CHANNEL_ID'] = 'C9SJMCH0T';
 
 var myLambda = require('./index');
 myLambda.handler(event, context, callback);
