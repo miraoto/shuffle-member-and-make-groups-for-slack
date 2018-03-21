@@ -13,5 +13,5 @@ var context = {
 };
 var callback = function(){};
 
-var myLambda = require('./index');
+var myLambda = require('./shuffle-member-post');
 myLambda.handler(event, context, callback);
