@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var event = {
   "value1": "value1"
 };
@@ -10,9 +12,6 @@ var context = {
     functionVersion: '$LATEST'
 };
 var callback = function(){};
-
-process.env['BOT_TOKEN'] =  'XXX';
-process.env['CHANNEL_ID'] = 'XXX';
 
 var myLambda = require('./index');
 myLambda.handler(event, context, callback);
