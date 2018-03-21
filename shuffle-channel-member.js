@@ -3,13 +3,12 @@ const request = require('sync-request');
 
 const token = process.env.BOT_TOKEN;
 const channelId = process.env.CHANNEL_ID;
-const timestamp = process.env.TIMESTAMP;
 const slackApiUrl = 'https://slack.com/api';
 const muxNumPerGroup = 2;
 
-function fetchReactions() {
-  const res = request('GET', `${slackApiUrl}/reactions.get?token=${token}&channel=${channelId}&timestamp=${timestamp}&pretty=1`);
-  return JSON.parse(res.getBody('utf8')).message.reactions;
+function fetchChannel() {
+  const res = request('GET', `${slackApiUrl}/channels.info?token=${token}&channel=${channelId}&pretty=1`);
+  return JSON.parse(res.getBody('utf8')).channel;
 }
 
 function fetchMembers(ids) {
@@ -50,14 +49,8 @@ function grouping(members) {
 exports.handler = (event, context, callback) => {
   console.log('start [' + event.name + ']');
 
-  let reactionMembers = [];
-  const reactions = fetchReactions();
-  reactions.map((reaction) => {
-    reactionMembers.push(reaction.users);
-  })
-  reactionMembers = Array.prototype.concat.apply([], reactionMembers);
-
-  const members = shuffle(fetchMembers(reactionMembers));
+  const channel = fetchChannel();
+  const members = shuffle(fetchMembers(channel.members));
   const groups = grouping(members);
 
   let msg = "I made a group. The one on the left is the leader.\n";

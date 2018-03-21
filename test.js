@@ -1,17 +1,19 @@
 require('dotenv').config();
 
-var event = {
+const event = {
   "value1": "value1"
 };
 
-var context = {
-    succeed: function(data){console.log(JSON.stringify(data,' ',4));},
-    fail: function(data){console.log("fail!!\n" + JSON.stringify(data,' ',4));},
-    invokedFunctionArn: 'test:development',
-    functionName: 'test',
-    functionVersion: '$LATEST'
+const context = {
+  succeed: function(data){console.log(JSON.stringify(data,' ',4));},
+  fail: function(data){console.log("fail!!\n" + JSON.stringify(data,' ',4));},
+  invokedFunctionArn: 'test:development',
+  functionName: 'test',
+  functionVersion: '$LATEST'
 };
-var callback = function(){};
+const callback = function(){};
 
-var myLambda = require('./shuffle-member-post');
+//const myLambda = require('./adjustment-post');
+//const myLambda = require('./shuffle-reaction-member');
+const myLambda = require('./shuffle-channel-member');
 myLambda.handler(event, context, callback);
